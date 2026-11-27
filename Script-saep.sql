@@ -27,9 +27,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `saep`.`reponsavel`
+-- Table `saep`.`responsavel`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `saep`.`reponsavel` (
+CREATE TABLE IF NOT EXISTS `saep`.`responsavel` (
   `id_responsavel` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `cpf` VARCHAR(200) NOT NULL,
@@ -44,12 +44,12 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `saep`.`aluno` (
   `idaluno` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
-  `reponsavel_id_responsavel` INT NOT NULL,
+  `responsavel_id_responsavel` INT NOT NULL,
   PRIMARY KEY (`idaluno`),
-  INDEX `fk_aluno_reponsavel_idx` (`reponsavel_id_responsavel` ASC) VISIBLE,
-  CONSTRAINT `fk_aluno_reponsavel`
-    FOREIGN KEY (`reponsavel_id_responsavel`)
-    REFERENCES `saep`.`reponsavel` (`id_responsavel`)
+  INDEX `fk_aluno_responsavel_idx` (`responsavel_id_responsavel` ASC) VISIBLE,
+  CONSTRAINT `fk_aluno_responsavel`
+    FOREIGN KEY (`responsavel_id_responsavel`)
+    REFERENCES `saep`.`responsavel` (`id_responsavel`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

@@ -36,13 +36,13 @@ INSERT INTO `matricula` VALUES (1,'Automobilistica','2022-03-21',1),(2,'TI','202
 UNLOCK TABLES;
 
 --
--- Dumping data for table `reponsavel`
+-- Dumping data for table `responsavel`
 --
 
-LOCK TABLES `reponsavel` WRITE;
-/*!40000 ALTER TABLE `reponsavel` DISABLE KEYS */;
-INSERT INTO `reponsavel` VALUES (1,'Zé','111.111.111-11'),(2,'Richarlison','222.222.222-22'),(3,'Brian','333.333.333-33');
-/*!40000 ALTER TABLE `reponsavel` ENABLE KEYS */;
+LOCK TABLES `responsavel` WRITE;
+/*!40000 ALTER TABLE `responsavel` DISABLE KEYS */;
+INSERT INTO `responsavel` VALUES (1,'Zé','111.111.111-11'),(2,'Richarlison','222.222.222-22'),(3,'Brian','333.333.333-33');
+/*!40000 ALTER TABLE `responsavel` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

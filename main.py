@@ -34,10 +34,59 @@ def login():
 @app.route("/principal")
 def principal():
     return render_template("principal.html")
+
 @app.route("/logoff")
 def logoff():
     session.clear()
     return redirect("/login")
 
+@app.route("/responsavel", methods=["GET", "POST"])
+def responsavel():
+    if request.method == "GET":
+        busca = request.args.get("busca")
+        conexao,cursor = conectar()
+        if busca:
+            cursor.execute(""" SELECT id_responsavel, nome, cpf FROM responsavel
+                                WHERE nome like %s;""", [f"%{busca}%"])
+        else:
+            cursor.execute(""" SELECT id_responsavel, nome, cpf FROM responsavel""")
+        responsaveis = cursor.fetchall()
+        conexao.close()
+        return render_template("responsavel.html", responsaveis = responsaveis)
+
+    if request.method == "POST":
+        nome = request.form.get("nome")
+        cpf = request.form.get("cpf")
+
+        conexao, cursor = conectar()
+        cursor.execute(""" INSERT INTO responsavel (cpf,nome)
+                            VALUES (%s,%s);""",(cpf,nome))
+        conexao.commit()
+        conexao.close()
+        return redirect("/responsavel")
+
+@app.route("/excluir_responsavel/<id>")
+def excluir_responsavel(id):
+    conexao,cursor = conectar()
+    cursor.execute(""" DELETE FROM responsavel 
+                        WHERE id_responsavel = %s""",(id,))
+    conexao.commit()
+    conexao.close()
+
+    return redirect("/responsavel")
+
+@app.route("/alterar_responsavel",methods=["POST"])
+def alterar_responsavel():
+    id_responsavel= request.form.get("id_responsavel_alt")
+    cpf = request.form.get("cpf_alt")
+    nome = request.form.get("nome_alt")
+
+    conexao,cursor = conectar()
+    cursor.execute(""" UPDATE responsavel
+                        SET cpf = %s, nome = %s
+                        WHERE id_responsavel = %s;""",(cpf,nome,id_responsavel))
+    conexao.commit()
+    conexao.close()
+    return redirect("/responsavel")
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

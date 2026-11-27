@@ -15,7 +15,14 @@
         <button type="submit">CADASTRAR</button>
     </form>
 
-    <h1>RESPONSAVEIS CADASTRADOR</h1>
+    <h1>BUSCAR RESPONSAVEL</h1>
+    <form action="/responsavel" method="get">
+        <p>Buscar por nome</p>
+        <input type="text" name="busca">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <h1>RESPONSAVEIS CADASTRADOS</h1>
     <table>
         <tr>
             <th>ID RESPONSAVEL</th>
@@ -23,23 +30,25 @@
             <th>NOME</th>
             <th>BOTÕES</th>
         </tr>
+        {% for responsavel in responsaveis %}
         <tr>
-            <form action="/alterar" method="post">
+            <form action="/alterar_responsavel" method="post">
                 <td>
-                    <input type="text" value="1">
+                    <input type="text" name="id_responsavel_alt" value="{{responsavel.id_responsavel}}">
                 </td>
                 <td>
-                    <input type="text" value="111.111.111-11">
+                    <input type="text" name="cpf_alt" value="{{responsavel.cpf}}">
                 </td>
                 <td>
-                    <input type="text" value="Alex">
+                    <input type="text" name="nome_alt" value="{{responsavel.nome}}">
                 </td>
                 <td>
-                    <a href="/excluir">EXCLUIR</a>
+                    <a href="/excluir_responsavel/{{responsavel.id_responsavel}}">EXCLUIR</a>
                     <button type="submit">ALTERAR</button>
                 </td>
             </form>
         </tr>
+        {% endfor %}
     </table>
 </body>
 </html>
